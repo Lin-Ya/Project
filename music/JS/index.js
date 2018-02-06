@@ -86,7 +86,7 @@ function $$(selector) {
 
 function getMusicList(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://easy-mock.com/mock/5a756b1440dab25fe4c3b082/example/music', 'true')
+    xhr.open('GET', 'Project/music/MUSIC/music.jscon', 'true')
     xhr.onload = function () {
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
             callback(JSON.parse(this.responseText)) //表示数据获取成功
