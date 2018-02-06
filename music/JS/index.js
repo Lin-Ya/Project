@@ -27,6 +27,7 @@ $('#playBtn').addEventListener('click' ,function(e) {
 
 //上下一首
 $('#lastSong').addEventListener('click', function () {
+    $$('p')[currentIndex].style.color = '#000';
     audioObj.pause();
     if (currentIndex === 0) {
         currentIndex = (musicList.length - 1);
@@ -37,6 +38,7 @@ $('#lastSong').addEventListener('click', function () {
     }
 })
 $('#nextSong').addEventListener('click', function(){
+    $$('p')[currentIndex].style.color = '#000';
     audioObj.pause();
     if (currentIndex === (musicList.length - 1)) {
         currentIndex = 0;
@@ -90,8 +92,8 @@ function getMusicList(callback) {
     xhr.onload = function () {
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
             callback(JSON.parse(this.responseText)) //表示数据获取成功
-            loadMusic();// 加载音乐数据
             loadMusicList();
+            loadMusic();// 加载音乐数据
         } else {
             console.log('获取数据失败')
         }
@@ -111,7 +113,8 @@ function loadMusic() {
     cover.style.backgroundImage = "url(" + musicList[currentIndex].img + ")";
     audioObj.autoplay = true;
     audioObj.volume = 0.2;
-    
+    console.log(currentIndex);
+    $$('.list p')[currentIndex].style.color = 'rgb(103, 9, 191)';
 }
 
 function loadMusicList() {
