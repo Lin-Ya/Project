@@ -86,7 +86,7 @@ function $$(selector) {
 
 function getMusicList(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'Project/music/MUSIC/music.jscon', 'true')
+    xhr.open('GET', '/MUSIC/music.json', 'true')
     xhr.onload = function () {
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
             callback(JSON.parse(this.responseText)) //表示数据获取成功
