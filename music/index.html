@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="description" content="音乐播放器" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musicplayer</title>
+    <link rel="stylesheet" href="/CSS/commin.css">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="cover"></div>
+    <div class="main">
+        <div class="musicbox">
+            <div class="music-panel clearfix">
+                <div class="music">
+                    <div class="control">
+                        <span>
+                            <i class="fa fa-step-backward" id="lastSong" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <i class="fa fa-pause" id="playBtn" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <i class="fa fa-step-forward" id="nextSong" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        小幸运
+                    </div>
+                    <div class="auther">
+                        田馥甄
+                    </div>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="bar">
+                    <!-- 这是音乐进度条 -->
+                    <div class="progress-total"></div>
+                    <div class="progerss-now"></div>
+                </div>
+                <div class="time">
+                    <div class="timenow"></div>
+                    <div class="timetotal"></div>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>

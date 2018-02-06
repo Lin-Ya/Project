@@ -1,0 +1,41 @@
+.control span {
+    cursor: pointer;
+}
+
+.cover {
+    height: 100%;
+    background-image: url(http://upload-images.jianshu.io/upload_images/8048507-ef682c2a476ad7f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.main .musicbox {
+    background: linear-gradient(to top right ,rgba(67, 47, 138, 0.351) ,rgba(230, 222, 165, 0.639));
+    background-color: rgb(235, 217, 255);
+}
+
+.list {
+    background-color: rgba(255, 255, 255, 0.612);
+    padding: 10px 0px;
+}
+
+.list p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 8px 5px;
+    padding: 0 10px;
+    box-shadow: 1px 1px 1px 1px hsla(268, 19%, 69%, 0.55);
+}
+
+.list p:hover {
+    background-color: rgba(141, 33, 242, 0.845);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.playing {
+    color:rgb(103, 9, 191);
+}

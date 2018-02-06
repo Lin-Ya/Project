@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+  
+}
+body {
+  position: relative;
+}
+
+.clearfix::after {
+  content: '';
+  clear:both;
+  display: block;
+}
+.main {
+  box-shadow: 2px 3px 5px 5px rgba(74, 33, 99, 0.502);
+  border: 1px solid #977feb;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.musicbox {
+  width : 400px;
+  height : 150px;
+}
+
+.list {
+  width : 400px;
+  line-height:24px;
+}
+
+.music-panel {
+  width: 360px;
+  padding:20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music {
+  width: 130px;
+  float: left;
+  font-size: 25px;
+  margin-right: 10px;
+  padding-top: 35px;
+}
+span{
+  color: #7327bfdd;
+}
+.music .control {
+  margin-left: 10px;
+  position: relative;
+}
+.music .control span:nth-child(1) {
+  position: absolute;
+}
+.music .control span:nth-child(2) {
+  position: absolute;
+  left: 30%;
+}
+.music .control span:nth-child(3) {
+  position: absolute;
+  left: 66%;
+}
+.info {
+  float: left;
+  padding: 10px 10px;
+}
+
+.info .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+  padding-bottom: 5px;
+  font-size: 21px;
+  color: #7141a2;
+  font-weight: bolder;
+}
+.info .auther {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+.progress {
+  width: 400px;
+  height: 40px;
+}
+
+.bar {
+  margin: 0 20px 5px;;
+  width: 350px;
+  height:3px;
+  position: relative;
+}
+.bar .progress-total {
+  width: 350px;
+  height: 3px;
+  float: left;
+  background-color: rgba(119, 120, 114, 0.488);
+}
+
+.bar .progerss-now {
+  width: 20px;
+  height: 3px;
+  position: absolute;
+  background-color: rgb(139, 72, 181);
+}
+
+.timenow {
+  display: inline-block;
+  margin-left: 20px;
+}
+.timetotal {
+  float: right;
+  margin-right: 20px;
+}
+
+
+.list span {
+  padding: 10px;
+}
