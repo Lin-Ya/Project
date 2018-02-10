@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+    box-shadow: border-box;
+}
+
+.clearfix::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+.main {
+    width: 790px;
+    margin: 0 auto;
+    position: relative;
+}
+.main .header {
+    font-size: 25px;
+    margin: 10px 20px;
+    padding: 10px 0;
+}
+.btnPenal {
+    float: left;
+    clear: both;
+    margin-left: 20px;
+}
+.cell {
+    border: 1px solid #ccc;
+    width: 200px;
+    float: left;
+    position: relative;
+    text-align: center;
+    margin: 5px 20px 20px 20px;
+    padding: 20px 10px;
+}
+.cell button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+}
+.hidden {
+    display: none;
+}
+
+.active {
+    display: unset;
+}
+
+.cell .title {
+    margin: 10px 0;
+} 
+.cell .prices {
+    color: rgb(182, 19, 19);
+    
+}
+.to-edit {
+    filter: grayscale(2) blur(2px);
+}
+
+button {
+    border: 1px solid rgb(187, 0, 0);
+    color: rgb(187, 0, 0);
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.btnPenal button {
+    margin-right: 15px;
+}
