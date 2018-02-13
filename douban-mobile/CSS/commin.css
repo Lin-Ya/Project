@@ -8,6 +8,22 @@ html, body{
     height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: #777;
+}
+a:link { 
+  text-decoration: none;
+}
+a:active { 
+  text-decoration:none;
+}
+a:hover { 
+  text-decoration:none;
+} 
+a:visited { 
+  text-decoration: none;
+}
 
 body {
   position: relative;
@@ -21,6 +37,8 @@ section {
 
 main {
   height: calc(100% - 50px);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 main .active{
@@ -48,7 +66,7 @@ footer .tab span:hover {
   cursor: pointer;
 }
 
-.active span{
+.tab.active span{
   color: #d2790c;
 }
 
@@ -89,3 +107,33 @@ footer .tab span:hover {
   right: 5px;
 }
 
+/* top250部分 */
+
+.item {
+  border-bottom: 2px solid #ccc;
+  height: 120px;
+  width: 95%;
+  margin: 0px auto;
+}
+
+.item #rating {
+  color: red;
+}
+
+.item a::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.item img {
+  float: left;
+  height: 100px;
+  margin: 5px 10px 5px 5px;
+}
+.item h1 {
+  color: #000;
+  padding-top: 9px;
+}
+.item div,p {
+  padding-top: 4px;
+}
