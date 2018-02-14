@@ -35,11 +35,17 @@ section {
   display: none;
 }
 
-main {
-  height: calc(100% - 50px);
+section.active>div {
+  height: calc(100vh - 50px);
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
+
+/* main section.active .container {
+  height: calc(100vh - 50px);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+} */
 
 main .active{
   display: block;
@@ -107,6 +113,19 @@ footer .tab span:hover {
   right: 5px;
 }
 
+.loading {
+  padding: 8px;
+  text-align: center;
+}
+.loading .iconfont {
+  font-size: 23px;
+  display: inline-block;
+  animation: 1s rotate linear infinite;
+}
+@keyframes rotate {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
 /* top250部分 */
 
 .item {

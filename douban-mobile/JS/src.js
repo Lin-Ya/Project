@@ -6,21 +6,42 @@ $('.tab').on('click', function () {
     $('section').eq(indexTab).addClass('active').siblings().removeClass('active');
 });
 
-//发送请求获取toplist电影
+
+//**********************************
+//发送请求获取toplist电影，封装成一个函数。
+function getTop250() {
+    if (isLoading) return
+    isLoading = true
+    $('.loading').show();
+    $.ajax({
+        url: 'https://api.douban.com/v2/movie/top250',
+        type: 'GET',
+        data: {
+            start: index,
+            count: 20
+        },
+        dataType: 'jsonp'
+    })
+        .done(function (ret) {
+            index += 20;
+            moveDate = ret;
+            console.log(index);
+            console.log(moveDate);
+            moveDate.subjects.forEach(createItem);
+        })
+        .fail(function () {
+            console.log('获取失败')
+        })
+        .always(function () {
+            isLoading = false;
+            $('.loading').hide();
+        })
+}
+var index = 0;
 var moveDate;
-$.ajax({
-    url: 'https://api.douban.com/v2/movie/top250',
-    type: 'GET',
-    data: {
-        start: 0,
-        count: 20
-    },
-    dataType: 'jsonp'
-}).done(function (ret) {
-    moveDate = ret;
-}).fail(function () {
-    console.log('获取失败');
-});
+var isLoading = false;
+getTop250();
+
 
 
 //生成item（生成带有数据的node节点？）
@@ -74,7 +95,19 @@ function createItem(obj) {
     html += '<p id="casts">主演：' + casts + '</p>';
     html += '</a>';
     html += '</div>';
-    $('section').eq(0).append(html);//把生成好的html字符串添加到节点中。
+    $('#top250').append(html);                   //把生成好的html字符串添加到节点中。
 }
+
+
+
+
+$('main').scroll(function () {
+    if ($('section').eq(0).height() - 30 <= $('main').height() + $('main').scrollTop()) {
+        getTop250();
+    }
+});
+
+
+
 
 
