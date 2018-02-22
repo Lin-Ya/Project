@@ -1,15 +1,3 @@
-$(window).on('load', function () {
-    getData(function (newsList) {
-        console.log(newsList)
-        newsList.forEach(function (news) {
-            var $node = createNode(news); //创建一个node节点，返回的是jQuery对象
-            $node.find('img').load(function () { //当里面的img载入的时候，执行函数，把这个node节点插入到main里面。
-                $('#main').append($node);
-                waterfall($node);//对这个jQuery对象进行瀑布流布局
-            })
-        })
-    });
-})
 
 var curPage = 1
 var perPageCount = 10
@@ -51,6 +39,7 @@ var colNum = Math.floor($(window).width()/nodeWidth)
 for(var i=0; i<colNum; i++){
     colHeightArray[i] = 0;
 }
+
 function waterfall($node) {
     var miniIndex = 0;
     var miniValue = colHeightArray[0];
@@ -67,3 +56,14 @@ function waterfall($node) {
     })
     colHeightArray[miniIndex] += $node.outerHeight(true);
 }
+
+getData(function (newsList) {
+    console.log(newsList)
+    newsList.forEach(function (news) {
+        var $node = createNode(news); //创建一个node节点，返回的是jQuery对象
+        $node.find('img').load(function () { //当里面的img载入的时候，执行函数，把这个node节点插入到main里面。
+            $('#main').append($node);
+            waterfall($node);//对这个jQuery对象进行瀑布流布局
+        })
+    })
+});
