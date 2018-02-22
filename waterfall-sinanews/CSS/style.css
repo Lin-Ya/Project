@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#main {
+    position: relative;
+    margin: 0 auto;
+}
+#main::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.box {
+    padding: 15px 0 0 15px;
+    width: 300px;
+    float: left;
+}
+.card {
+    border-radius: 4px;
+    padding: 10px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px 3px #ccc;
+}
+.card a img {
+    width: 265px;
+    margin: 0 auto;
+}
+.card h4 {
+    line-height: 16px;
+    padding: 10px 0 6px 0;
+    border-bottom: 1px solid #999;
+}
+.card p {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #999;
+}
