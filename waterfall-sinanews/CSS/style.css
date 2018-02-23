@@ -9,7 +9,8 @@ body{
 #header{
     min-width: 300px;
     padding-left: 20px;
-    background-color: rgb(182, 147, 147);
+    text-align: center;
+    padding: 20px 0 10px;;
 }
 #main {
     min-width: 300px;
