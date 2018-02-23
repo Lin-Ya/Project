@@ -1,7 +1,6 @@
 var newsList;
 var perPageCount = 10;
 var curPage = 1;
-
 var app = {
     init: function () {
         this.isLoading = false
@@ -89,11 +88,7 @@ var app = {
         if ($('.box').last().offset().top + 200 < $(window).height()) {  //判断最后一个区块是否完全显示在浏览器（因为浏览器太宽不出现滚动条）
             app.start();
         }
-        if ($('.box').last().offset().top <= $(window).height() + $(window).scrollTop()){
-            return true;
-        }else {
-            return false;
-        }
+        return ($('.box').last().offset().top <= $(window).height() + $(window).scrollTop()) ? true:false;
     },
     start: function () {
         var _this = this;
