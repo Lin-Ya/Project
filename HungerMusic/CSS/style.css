@@ -1,0 +1,157 @@
+html,
+body,
+section {
+    height: 100%;
+    overflow: hidden;
+}
+
+.layout {
+    margin: 0 auto;
+    width: 600px;
+}
+
+@media (min-width: 700px) {
+    .layout {
+        width: 600px;
+    }
+}
+
+@media (min-width: 900px) {
+    .layout {
+        width: 800px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .layout {
+        width: 900px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .layout {
+        width: 1100px;
+    }
+}
+
+#page-music main {
+    height: 75vh;
+    padding-top: 10vh;
+}
+
+#page-music footer {
+    height: calc(100% - 75vh);
+    background-color: rgba(255, 255, 255, 0.158);
+}
+
+.bg {
+    position: absolute;
+    z-index: -1;
+    top: -8px;
+    bottom: -8px;
+    left: -8px;
+    right: -8px;
+    background-image: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small);
+    background-size: cover;
+    filter: blur(4px);
+}
+
+.bg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.397);
+}
+
+main .aside {
+    float: left;
+}
+
+main figure {
+    background-image: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-middle);
+    background-size: cover;
+    height: 45vh;
+    width: 45vh;
+}
+
+main .actions span {
+    color: rgba(255, 255, 255, 0.438);
+    margin-top: 4vh;
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    font-size: 5vh;
+    cursor: pointer;
+    transition: color .5s;
+}
+main .actions span:hover {
+    color: #fff;
+}
+
+main .detail {
+    margin-left: 55vh;
+    color: #fff;
+}
+
+main .detail .tag {
+    font-size: 2vh;
+    padding: .4em .8em;
+    background-color: #054dd3;
+}
+
+main .detail .title {
+    margin-top: 4vh;
+    font-size: 7vh;
+}
+
+main .detail .icons {
+    margin-top: 5vh;
+    display: flex;
+}
+
+main .detail .icons li {
+    flex: 1;
+    width: 33.33%;
+    font-size: 3vh;
+}
+
+main .detail .bar {
+    margin-top: 8vh;
+    display: flex;
+    align-items: center;
+}
+main .detail .bar .timebar {
+    border-radius: 2px;
+    position: relative;
+    flex: 1;
+    background-color: #d8d8d894;
+    height: 5px;
+    
+}
+main .detail .bar .playingtime {
+    border-radius: 2px;
+    position: absolute;
+    width: 20%;
+    background-color: #fff;
+    height: 5px;
+}
+main .detail .bar span {
+    width: 2vh;
+    margin-left: 2vh;
+}
+
+main .detail .author {
+    margin-top: 3.5vh;
+    font-size: 3vh;
+    color: #ffffffc9;
+}
+main .detail .lrc {
+    color: #ffffffc9;
+    margin-top: 4.3vh;
+    font-size: 3vh;
+    overflow: hidden;
+}
+
