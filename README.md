@@ -8,4 +8,4 @@
 
 - [瀑布流新浪新闻布局预览地址](https://lin-ya.github.io/Project/waterfall-sinanews/index.html)
 
--[大屏音乐播放器](https://lin-ya.github.io/Project/HungerMusic/)
+- [大屏音乐播放器](https://lin-ya.github.io/Project/HungerMusic/)
