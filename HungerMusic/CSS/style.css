@@ -155,3 +155,17 @@ main .detail .lrc {
     overflow: hidden;
 }
 
+footer .layout {
+    border: 1px solid red;
+    position: relative;
+}
+
+footer .layout .iconfont {
+    position: absolute;
+    font-size: 15vh;
+    color: #fff;
+}
+
+footer .layout #footerLeft {
+    color: #054dd3;
+}
