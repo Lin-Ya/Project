@@ -183,11 +183,21 @@ footer:hover .iconfont {
     color: #fff;
 }
 
+
+footer .box {
+    height: 25vh;
+    width: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
 footer .box ul {
+    position: absolute;
     text-align: center;
     height: 25vh;
     display: flex;
     justify-content: space-between;
+    flex-flow: row nowrap;
     overflow: hidden;
 }
 footer .box ul>li {
