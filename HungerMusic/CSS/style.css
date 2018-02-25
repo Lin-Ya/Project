@@ -189,7 +189,6 @@ footer .box ul {
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    flex-wrap: wrap;
 }
 footer .box ul>li {
     cursor: pointer;
