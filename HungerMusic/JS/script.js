@@ -2,7 +2,6 @@ var channelList;
 var channel;
 var isEnd = false;
 var isStart = true;
-var l;
 //自定义事件中心
 var EventCenter = {
     on: function (type, handler) {
@@ -12,18 +11,12 @@ var EventCenter = {
         $(document).trigger(type, data); //发布事件，type为自定义事件类型，data为事件的数据
     }
 };
+//事件中心任务
 EventCenter.on('切换频道', function (e, data) {
     console.log(e.type);
     channel = data;
     console.log(data);
 })
-
-function contScroll() {
-    var rowCount = Math.floor($('footer .box').outerWidth() / $('footer li').outerWidth(true));
-    var itemWidth = $('footer li').outerWidth(true);
-    console.log(Math.floor(rowCount * itemWidth))
-    return Math.floor(rowCount * itemWidth);
-}
 
 //封装一个实现页面Footer功能的对象，里面包含了获取频道数据以及渲染footer区块的功能。
 var Footer = {
@@ -34,6 +27,7 @@ var Footer = {
         this.$box = this.$footer.find('.box');
         this.$leftBtn = this.$footer.find('#footerLeft');
         this.$rightBtn = this.$footer.find('#footerRight');
+        this.rollDistance = 0;
         this.start();
     },
     bind: function () {
@@ -41,12 +35,12 @@ var Footer = {
         this.$footer.find('li').on('click', function () {
             EventCenter.fire('切换频道', $(this).attr("id"))
         });
-        //绑定左右滚动
+        //绑定左右滚动，这里的左右滚动距离一开始完成页面载入的时候计算好并且左右的距离都固定
         this.$leftBtn.on('click', function () {
             if (!isStart) {
                 $('footer ul').animate({
-                    left: '+=' + l
-                }, 600, function () {
+                    left: '+=' + _this.rollDistance
+                }, 450, function () {
                     isEnd = false;
                     if (parseFloat(_this.$ul.css('left')) == 0 ) {
                         isStart = true;
@@ -57,8 +51,8 @@ var Footer = {
         this.$rightBtn.on('click', function () {
             if (!isEnd) {
                 $('footer ul').animate({
-                    left: '-=' + l
-                }, 600, function () {
+                    left: '-=' + _this.rollDistance
+                }, 450, function () {
                     isStart = false;
                     if (_this.$ul.width() <= (_this.$box.width() - parseFloat(_this.$ul.css('left')))) {
                         isEnd = true;
@@ -66,6 +60,12 @@ var Footer = {
                 })
             }
         })
+    },
+    contScroll: function () {
+        var rowCount = Math.floor($('footer .box').outerWidth() / $('footer li').outerWidth(true));
+        var itemWidth = $('footer li').outerWidth(true);
+        console.log(Math.floor(rowCount * itemWidth))
+        return Math.floor(rowCount * itemWidth);
     },
     renderFooter: function (data) {
         var _this = this;
@@ -77,7 +77,7 @@ var Footer = {
             html += '</li>';
             $('footer .box ul').append(html);
         })
-        l = contScroll();
+        _this.rollDistance = _this.contScroll(); //在页面载入完成以后可以开始计算左右滚动的距离。使用全局变量防止变化
         _this.bind();
     },
     getData: function () {
@@ -96,5 +96,4 @@ var Footer = {
         this.getData();
     }
 }
-
 Footer.init();
