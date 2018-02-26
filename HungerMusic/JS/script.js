@@ -10,7 +10,6 @@ var EventCenter = {
         $(document).trigger(type, data); //发布事件，type为自定义事件类型，data为事件的数据
     }
 };
-
 var Fm = {
     init: function () {
         this.channelId;
@@ -25,31 +24,47 @@ var Fm = {
         var _this = this;
         this.$playBtn.on('click', function () {
             if($(this).hasClass('icon-play')){
-                $(this).removeClass('icon-play');
-                $(this).addClass('icon-stop');
+                $(this).removeClass('icon-play').addClass('icon-stop');
                 _this.audioObj.play()
                 console.log('开始播放')
             }else {
-                $(this).removeClass('icon-stop');
-                $(this).addClass('icon-play');
+                $(this).removeClass('icon-stop').addClass('icon-play');
                 _this.audioObj.pause()
                 console.log('暂停播放')
             }
         })
-
         // this.$main.find('.icon-like').on('click', function () {
         //     $(this).addClass('active');
         // })
-
         this.$main.find('.icon-nextsong').on('click', function () {
             _this.loadMusic();
         })
         EventCenter.on('切换了频道', function (e, channelId) {
-            console.log(e.type);
-            console.log(channelId);
+            _this.audioObj.pause();
             _this.channelId = channelId;
             _this.loadMusic();
         })
+
+        //播放暂停时候的状态更新
+        this.audioObj.addEventListener('play',function () {
+            _this.songStatus = setInterval(function () {
+                _this.updateStatus();
+            },500)
+        })
+        this.audioObj.addEventListener('pause', function () {
+            clearInterval(_this.songStatus)//取消歌曲状态更新
+        })
+    },
+    updateStatus(){
+        this.min = Math.floor(this.audioObj.currentTime/60);//计算多少分钟，向下取整
+        this.second = Math.floor(this.audioObj.currentTime%60) + '';//计算秒数，余60，向下取整
+        this.second.length ===2?this.second : this.second = '0'+ this.second;
+        this.time = this.min + ':' + this.second
+        this.timeNow = (this.audioObj.currentTime/this.audioObj.duration)*100 + '%'
+        this.$main.find('.playingtime').css({
+            'width':this.timeNow
+        })
+        this.$main.find('#time').text(this.time)
     },
     loadMusic: function () {
         var _this = this;
@@ -112,6 +127,7 @@ var Footer = {
             EventCenter.fire('切换了频道', $(this).attr("data-id"))
             $(this).addClass('active').siblings().removeClass('active')
             $('main .detail .tag').text($(this).attr("data-name"))
+            console.log('切换至 '+$(this).attr("data-name") + ' 频道')
         });
         //绑定左右滚动，这里的左右滚动距离一开始完成页面载入的时候计算好并且左右的距离都固定
         this.$leftBtn.on('click', function () {
