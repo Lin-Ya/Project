@@ -37,6 +37,7 @@ var Fm = {
         //     $(this).addClass('active');
         // })
         this.$main.find('.icon-nextsong').on('click', function () {
+            console.log('下一首')
             _this.loadMusic();
         })
         EventCenter.on('切换了频道', function (e, channelId) {
@@ -55,6 +56,7 @@ var Fm = {
             clearInterval(_this.songStatus)//取消歌曲状态更新
         })
         this.audioObj.onended = function () {
+            console.log('播放完毕，下一首')
             _this.loadMusic();
         }
     },
@@ -75,7 +77,6 @@ var Fm = {
             channel: _this.channelId
         })
             .done(function (ret) {
-                console.log(ret)
                 _this.song = ret.song[0];
                 _this.setMusic();
             })
@@ -118,7 +119,6 @@ var Footer = {
         this.rollDistance = 0;
         this.isAnimate = false;
         this.start();
-        console.log(2)
     },
     bind: function () {
         var _this = this;
