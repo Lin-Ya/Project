@@ -15,7 +15,7 @@ var Fm = {
         this.channelId;
         this.song;
         this.audioObj = new Audio();
-        this.audioObj.volume = 0.4;
+        this.audioObj.volume = 0.6;
         this.$main = $('main');
         this.$playBtn = this.$main.find('#playBtn');
         this.bind();
@@ -23,11 +23,11 @@ var Fm = {
     bind: function () {
         var _this = this;
         this.$playBtn.on('click', function () {
-            if($(this).hasClass('icon-play')){
+            if ($(this).hasClass('icon-play')) {
                 $(this).removeClass('icon-play').addClass('icon-stop');
                 _this.audioObj.play()
                 console.log('开始播放')
-            }else {
+            } else {
                 $(this).removeClass('icon-stop').addClass('icon-play');
                 _this.audioObj.pause()
                 console.log('暂停播放')
@@ -46,31 +46,34 @@ var Fm = {
         })
 
         //播放暂停时候的状态更新
-        this.audioObj.addEventListener('play',function () {
+        this.audioObj.addEventListener('play', function () {
             _this.songStatus = setInterval(function () {
                 _this.updateStatus();
-            },500)
+            }, 500)
         })
         this.audioObj.addEventListener('pause', function () {
             clearInterval(_this.songStatus)//取消歌曲状态更新
         })
+        this.audioObj.onended = function () {
+            _this.loadMusic();
+        }
     },
-    updateStatus(){
-        this.min = Math.floor(this.audioObj.currentTime/60);//计算多少分钟，向下取整
-        this.second = Math.floor(this.audioObj.currentTime%60) + '';//计算秒数，余60，向下取整
-        this.second.length ===2?this.second : this.second = '0'+ this.second;
+    updateStatus() {
+        this.min = Math.floor(this.audioObj.currentTime / 60);//计算多少分钟，向下取整
+        this.second = Math.floor(this.audioObj.currentTime % 60) + '';//计算秒数，余60，向下取整
+        this.second.length === 2 ? this.second : this.second = '0' + this.second;
         this.time = this.min + ':' + this.second
-        this.timeNow = (this.audioObj.currentTime/this.audioObj.duration)*100 + '%'
+        this.timeNow = (this.audioObj.currentTime / this.audioObj.duration) * 100 + '%'
         this.$main.find('.playingtime').css({
-            'width':this.timeNow
+            'width': this.timeNow
         })
         this.$main.find('#time').text(this.time)
     },
     loadMusic: function () {
         var _this = this;
         $.getJSON('//api.jirengu.com/fm/getSong.php', {
-                channel: _this.channelId
-            })
+            channel: _this.channelId
+        })
             .done(function (ret) {
                 console.log(ret)
                 _this.song = ret.song[0];
@@ -91,21 +94,16 @@ var Fm = {
         });
         $('main .detail .title').text(this.song.title);
         $('main .detail .author').text(this.song.artist);
-        $('main .detail .icon-erji span').text(Math.floor(this.song.sid /4560 + 88))
-        $('main .detail .icon-like span').text(Math.floor(this.song.sid /25000+67))
-        $('main .detail .icon-zan span').text(Math.floor(this.song.sid /27555+41))
+        $('main .detail .icon-erji span').text(Math.floor(this.song.sid / 4560 + 88))
+        $('main .detail .icon-like span').text(Math.floor(this.song.sid / 25000 + 67))
+        $('main .detail .icon-zan span').text(Math.floor(this.song.sid / 27555 + 41))
         this.audioObj.autoplay = true;
         this.audioObj.src = this.song.url;
         this.$playBtn.removeClass('icon-play').addClass('icon-stop');
-        $('head title').text('正在播放：'+ $('main .author').text() + '-' + $('main .title').text())
+        $('head title').text('正在播放：' + $('main .author').text() + '-' + $('main .title').text())
         console.log($('main .author').text() + '-' + $('main .title').text());
     }
 }
-
-
-
-
-
 
 
 //封装一个实现页面Footer功能的对象，里面包含了获取频道数据以及渲染footer区块的功能。
@@ -120,6 +118,7 @@ var Footer = {
         this.rollDistance = 0;
         this.isAnimate = false;
         this.start();
+        console.log(2)
     },
     bind: function () {
         var _this = this;
@@ -127,33 +126,40 @@ var Footer = {
             EventCenter.fire('切换了频道', $(this).attr("data-id"))
             $(this).addClass('active').siblings().removeClass('active')
             $('main .detail .tag').text($(this).attr("data-name"))
-            console.log('切换至 '+$(this).attr("data-name") + ' 频道')
+            console.log('切换至 ' + $(this).attr("data-name") + ' 频道')
         });
         //绑定左右滚动，这里的左右滚动距离一开始完成页面载入的时候计算好并且左右的距离都固定
         this.$leftBtn.on('click', function () {
+            if (_this.isAnimate) return;
             if (!isStart) {
+                _this.isAnimate = true;
                 $('footer ul').animate({
                     left: '+=' + _this.rollDistance
                 }, 450, function () {
                     isEnd = false;
-                    if (parseFloat(_this.$ul.css('left')) == 0 ) {
+                    _this.isAnimate = false;
+                    if (parseFloat(_this.$ul.css('left')) == 0) {
                         isStart = true;
                     }
                 })
             }
         })
         this.$rightBtn.on('click', function () {
+            if (_this.isAnimate) return;
             if (!isEnd) {
+                _this.isAnimate = true;
                 $('footer ul').animate({
                     left: '-=' + _this.rollDistance
                 }, 450, function () {
                     isStart = false;
+                    _this.isAnimate = false;
                     if (_this.$ul.width() <= (_this.$box.width() - parseFloat(_this.$ul.css('left')))) {
                         isEnd = true;
                     }
                 })
             }
         })
+        $('footer .box li').eq(0).trigger('click')
     },
     contScroll: function () {
         var rowCount = Math.floor($('footer .box').outerWidth() / $('footer li').outerWidth(true));
@@ -165,7 +171,7 @@ var Footer = {
         var _this = this;
         data.forEach(function (item) {
             var html = '';
-            html += '<li data-id="' + item.channel_id + '" data-name="'+item.name+'">';
+            html += '<li data-id="' + item.channel_id + '" data-name="' + item.name + '">';
             html += '  <div class="cover" style="background-image:url(' + item.cover_small + ')"></div>';
             html += '  <h3>' + item.name + '</h3>';
             html += '</li>';
