@@ -1,5 +1,4 @@
 var channelList;
-var channel;
 var isEnd = false;
 var isStart = true;
 //自定义事件中心
@@ -11,12 +10,88 @@ var EventCenter = {
         $(document).trigger(type, data); //发布事件，type为自定义事件类型，data为事件的数据
     }
 };
-//事件中心任务
-EventCenter.on('切换频道', function (e, data) {
-    console.log(e.type);
-    channel = data;
-    console.log(data);
-})
+
+var Fm = {
+    init: function () {
+        this.channelId;
+        this.song;
+        this.audioObj = new Audio();
+        this.audioObj.volume = 0.4;
+        this.$main = $('main');
+        this.$playBtn = this.$main.find('#playBtn');
+        this.bind();
+    },
+    bind: function () {
+        var _this = this;
+        this.$playBtn.on('click', function () {
+            if($(this).hasClass('icon-play')){
+                $(this).removeClass('icon-play');
+                $(this).addClass('icon-stop');
+                _this.audioObj.play()
+                console.log('开始播放')
+            }else {
+                $(this).removeClass('icon-stop');
+                $(this).addClass('icon-play');
+                _this.audioObj.pause()
+                console.log('暂停播放')
+            }
+        })
+
+        // this.$main.find('.icon-like').on('click', function () {
+        //     $(this).addClass('active');
+        // })
+
+        this.$main.find('.icon-nextsong').on('click', function () {
+            _this.loadMusic();
+        })
+        EventCenter.on('切换了频道', function (e, channelId) {
+            console.log(e.type);
+            console.log(channelId);
+            _this.channelId = channelId;
+            _this.loadMusic();
+        })
+    },
+    loadMusic: function () {
+        var _this = this;
+        $.getJSON('//api.jirengu.com/fm/getSong.php', {
+                channel: _this.channelId
+            })
+            .done(function (ret) {
+                console.log(ret)
+                _this.song = ret.song[0];
+                _this.setMusic();
+            })
+            .fail(function () {
+                console.log('网络异常，获取数据失败')
+            })
+    },
+    setMusic: function () {
+        $('body .bg').css({
+            background: 'url(' + this.song.picture + ') no-repeat',
+            backgroundSize: 'cover'
+        });
+        $('main figure').css({
+            background: 'url(' + this.song.picture + ') no-repeat',
+            backgroundSize: '45vh 45vh',
+        });
+        $('main .detail .title').text(this.song.title);
+        $('main .detail .author').text(this.song.artist);
+        $('main .detail .icon-erji span').text(Math.floor(this.song.sid /4560 + 88))
+        $('main .detail .icon-like span').text(Math.floor(this.song.sid /25000+67))
+        $('main .detail .icon-zan span').text(Math.floor(this.song.sid /27555+41))
+        this.audioObj.autoplay = true;
+        this.audioObj.src = this.song.url;
+        this.$playBtn.removeClass('icon-play').addClass('icon-stop');
+        $('head title').text('正在播放：'+ $('main .author').text() + '-' + $('main .title').text())
+        console.log($('main .author').text() + '-' + $('main .title').text());
+    }
+}
+
+
+
+
+
+
 
 //封装一个实现页面Footer功能的对象，里面包含了获取频道数据以及渲染footer区块的功能。
 var Footer = {
@@ -28,12 +103,15 @@ var Footer = {
         this.$leftBtn = this.$footer.find('#footerLeft');
         this.$rightBtn = this.$footer.find('#footerRight');
         this.rollDistance = 0;
+        this.isAnimate = false;
         this.start();
     },
     bind: function () {
         var _this = this;
         this.$footer.find('li').on('click', function () {
-            EventCenter.fire('切换频道', $(this).attr("id"))
+            EventCenter.fire('切换了频道', $(this).attr("data-id"))
+            $(this).addClass('active').siblings().removeClass('active')
+            $('main .detail .tag').text($(this).attr("data-name"))
         });
         //绑定左右滚动，这里的左右滚动距离一开始完成页面载入的时候计算好并且左右的距离都固定
         this.$leftBtn.on('click', function () {
@@ -71,7 +149,7 @@ var Footer = {
         var _this = this;
         data.forEach(function (item) {
             var html = '';
-            html += '<li id="' + item.channel_id + '">';
+            html += '<li data-id="' + item.channel_id + '" data-name="'+item.name+'">';
             html += '  <div class="cover" style="background-image:url(' + item.cover_small + ')"></div>';
             html += '  <h3>' + item.name + '</h3>';
             html += '</li>';
@@ -97,3 +175,4 @@ var Footer = {
     }
 }
 Footer.init();
+Fm.init();

@@ -63,7 +63,7 @@ section {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.397);
+    background-color: rgba(0, 0, 0, 0.76);
 }
 
 main .aside {
@@ -87,6 +87,9 @@ main .actions span {
     cursor: pointer;
     transition: color .5s;
 }
+main .aside span.active {
+    color: red;
+}
 main .actions span:hover {
     color: #fff;
 }
@@ -104,14 +107,15 @@ main .detail .tag {
 
 main .detail .title {
     margin-top: 4vh;
-    font-size: 7vh;
+    font-size: 6.5vh;
+    overflow: hidden;
+    height: 10vh;
 }
 
 main .detail .icons {
     margin-top: 5vh;
     display: flex;
 }
-
 main .detail .icons li {
     flex: 1;
     width: 33.33%;
@@ -209,17 +213,24 @@ footer .box ul>li .cover {
     height: 16vh;
     width: 20vh;
 }
-
 footer .box ul>li h3{
     font-weight: lighter;
     margin-top: 1.5vh;
     color: #ffffff70;
 }
-
 footer .box ul>li:hover {
     box-shadow: 0 0 5px 4px #ffffff9f;
 }
 footer .box ul>li:hover h3 {
+    color: #fff;
+    font-weight: normal;
+}
+footer .box ul>li.active {
+    box-shadow: 0 0 5px 4px #ffffff9f;
+    color: #fff;
+    font-weight: bolder;
+}
+footer .box ul>li.active h3 {
     color: #fff;
     font-weight: normal;
 }
