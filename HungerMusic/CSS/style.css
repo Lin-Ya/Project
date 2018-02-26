@@ -126,22 +126,47 @@ main .detail .bar {
     margin-top: 8vh;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 main .detail .bar .timebar {
-    border-radius: 2px;
+    border-radius: 3px;
     position: relative;
     flex: 1;
-    background-color: #d8d8d894;
+    background-color: #80808094;
     height: 5px;
-    
 }
+
+main .detail .timebar .loadingbar {
+    height: inherit;
+    border-radius: 2px;
+    position: absolute;
+    width: 20%;
+    height: 5px;
+    background-color: #c9c9;
+}
+
 main .detail .bar .playingtime {
+    height: inherit;
     border-radius: 2px;
     position: absolute;
     width: 0%;
-    background-color: #fff;
+    background: -webkit-linear-gradient(left, #fec514, #EE4000);
+    background: linear-gradient(left, #fec514, #EE4000);
     height: 5px;
+    z-index: 2;
 }
+main .detail .bar .playingtime::after{
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 4.5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    position: absolute;
+    right: -11px;
+    top: -50%;
+}
+
 main .detail .bar span {
     width: 2vh;
     margin-left: 2vh;
