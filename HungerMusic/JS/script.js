@@ -73,7 +73,7 @@ var Fm = {
     },
     loadMusic: function () {
         var _this = this;
-        $.getJSON('//api.jirengu.com/fm/getSong.php', {
+        $.getJSON('https://api.jirengu.com/fm/getSong.php', {
             channel: _this.channelId
         })
             .done(function (ret) {
