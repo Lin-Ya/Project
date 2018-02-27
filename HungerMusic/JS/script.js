@@ -1,8 +1,8 @@
 /*
  * @Author: FengHuiwing 
  * @Date: 2018-02-27 18:26:13 
- * @Last Modified by:   FengHuiwing 
- * @Last Modified time: 2018-02-27 18:26:13 
+ * @Last Modified by: FengHuiwing
+ * @Last Modified time: 2018-02-27 18:27:45
  */
 
 
@@ -282,3 +282,4 @@ Fm.init();
 
 //Todo:
 //1. 进度条可修改
+//2.利用localstorage实现红心功能
