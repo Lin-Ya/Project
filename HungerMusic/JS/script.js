@@ -2,7 +2,7 @@
  * @Author: FengHuiwing 
  * @Date: 2018-02-27 18:26:13 
  * @Last Modified by: FengHuiwing
- * @Last Modified time: 2018-02-27 18:27:45
+ * @Last Modified time: 2018-02-27 18:36:52
  */
 
 
@@ -65,7 +65,7 @@ var Fm = {
         this.audioObj.addEventListener('play', function () {
             _this.songStatus = setInterval(function () {
                 _this.updateStatus();
-            }, 1000)
+            }, 500)
         })
         this.audioObj.addEventListener('pause', function () {
             clearInterval(_this.songStatus) //取消歌曲状态更新

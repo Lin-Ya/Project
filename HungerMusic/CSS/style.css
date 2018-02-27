@@ -157,20 +157,20 @@ main .detail .bar .playingtime {
     background: -webkit-linear-gradient(left, #fec514, #EE4000);
     background: linear-gradient(left, #fec514, #EE4000);
     height: 5px;
-    transition: width .8s;
+    transition: width .5s;
     z-index: 2;
 }
 
 main .detail .bar .playingtime::after {
     content: '';
-    width: 9px;
-    height: 9px;
-    border-radius: 4.5px;
-    border: 1px solid #000;
+    width: 5px;
+    height: 5px;
+    border-radius: 3.5px;
+    border: 1px solid #e7c00e;
     background-color: #fff;
     position: absolute;
-    right: -11px;
-    top: -55%;
+    right: -5px;
+    top: -1px;
 }
 
 main .detail .bar span {
