@@ -1,8 +1,8 @@
 /*
- * @Author: FengHuiwing 
- * @Date: 2018-02-27 18:26:13 
- * @Last Modified by: FengHuiwing
- * @Last Modified time: 2018-02-27 18:36:52
+ * @Author: mikey.zhaopeng 
+ * @Date: 2018-02-27 19:39:58 
+ * @Last Modified by:   mikey.zhaopeng 
+ * @Last Modified time: 2018-02-27 19:39:58 
  */
 
 
@@ -106,7 +106,8 @@ var Fm = {
                 _this.loadLyric();
             })
             .fail(function () {
-                console.log('网络异常，获取数据失败')
+                console.log('刚刚网络异常，获取数据失败')
+                _this.loadMusic();
             })
     },
 
