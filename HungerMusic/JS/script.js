@@ -1,9 +1,10 @@
 /*
  * @Author: FengHuiwing 
- * @Date: 2018-02-27 17:51:07 
- * @Last Modified by: FengHuiwing
- * @Last Modified time: 2018-02-27 18:02:14
+ * @Date: 2018-02-27 18:26:13 
+ * @Last Modified by:   FengHuiwing 
+ * @Last Modified time: 2018-02-27 18:26:13 
  */
+
 
 var channelList;
 var isEnd = false;
@@ -50,7 +51,6 @@ var Fm = {
         // this.$main.find('.icon-like').on('click', function () {
         //     $(this).addClass('active');
         // })
-
         //绑定“下一首”按钮事件
         this.$main.find('.icon-nextsong').on('click', function () {
             console.log('下一首')
@@ -61,7 +61,6 @@ var Fm = {
             _this.channelId = channelId;
             _this.loadMusic();
         })
-
         //播放暂停时候的状态更新
         this.audioObj.addEventListener('play', function () {
             _this.songStatus = setInterval(function () {
@@ -92,7 +91,6 @@ var Fm = {
         if (this.lyricObj['0' + this.time]) {
             $('.lrc p').text(_this.lyricObj['0' + _this.time]).boomText('fadeInLeft');
         }
-
     },
 
     //获取歌曲
@@ -148,7 +146,6 @@ var Fm = {
             _this.lyricArray.split(/\n/).forEach(function (item) {
                 let time = item.match(/\d{2}:\d{2}/g)
                 let str = item.replace(/\[.+?\]/g, '')
-
                 //注意，由于时间应该为数组，且数组有可能为空，导致配对不上歌词，所以应该先判断是否为数组，然后再forEach配对时间和歌词
                 if (Array.isArray(time)) {
                     time.forEach(function (times) {
@@ -234,7 +231,8 @@ var Footer = {
             html += '</li>';
             $('footer .box ul').append(html);
         })
-        _this.rollDistance = _this.contScroll(); //在页面载入完成以后可以开始计算左右滚动的距离。使用全局变量防止变化
+        //在页面载入完成以后可以开始计算左右滚动的距离。使用全局变量防止变化
+        _this.rollDistance = _this.contScroll(); 
         _this.bind();
     },
     getData: function () {
@@ -256,27 +254,31 @@ var Footer = {
 
 //一个实现动态歌词展示的jQuery插件,动画需要借助CSS animate来实现，所以要引入。
 $.fn.boomText = function (type) {
-    type = type || 'rollIn' //判断类型，如果没有传入，默认为rollIn
+    type = type || 'rollIn'                                                 //判断类型，如果没有传入，默认为rollIn
     this.html(function () {
+        
         //这里的处理是：获取需要展示的歌词内容，放入arr中变成数组，用span标签包裹其每一个字，然后再return出去用.html()方法添加到DOM中。
         var arr = $(this).text()
             .split('').map(function (word) {
                 return '<span  style="opacity:0;display:inline-block">' + word + ' </span>' //由于引用了CSS动画，这里我们需要设置为inline-block和不可见
             }).join('');
-        return arr; //把数组合拼变成字符串，再添加到页面中
+        return arr;                                                         //把数组合拼变成字符串，再添加到页面中
     })
     //接下来给已经处理过的span添加动画的class，同时设置延迟。
-    var index = 0; //初始化index
-    var $boomTexts = $(this).find('span') //找到处理过的span，这里的是jQuery对象
-    var clock = setInterval(function () { //给延时器添加名称，否则待会取消不了
-        $boomTexts.eq(index).addClass('animated ' + type) //添加class和type名称。
+    var index = 0;                                                          //初始化index
+    var $boomTexts = $(this).find('span')                                   //找到处理过的span，这里的是jQuery对象
+    var clock = setInterval(function () {                                   //给延时器添加名称，否则待会取消不了
+        $boomTexts.eq(index).addClass('animated ' + type)                   //添加class和type名称。
+       
         index++ //index自增
         if (index >= $boomTexts.length) {
-            clearInterval(clock) //处理完完最后一个的时候，取消延时器
+            clearInterval(clock)                                            //处理完完最后一个的时候，取消延时器
         }
-    }, 250) //延时器的存在，确保了歌词的每一个字可以延时变更状态，从隐藏变为动画展示，所以在上面给每一个span设置了隐藏。
+    }, 150)                                                                 //延时器的存在，确保了歌词的每一个字可以延时变更状态，从隐藏变为动画展示，所以在上面给每一个span设置了隐藏。
 }
-
 
 Footer.init();
 Fm.init();
+
+//Todo:
+//1. 进度条可修改
