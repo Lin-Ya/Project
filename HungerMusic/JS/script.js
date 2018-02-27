@@ -10,7 +10,10 @@ var EventCenter = {
         $(document).trigger(type, data); //发布事件，type为自定义事件类型，data为事件的数据
     }
 };
+
+//封装一个实现页面播放功能的对象，实现播放中心的功能
 var Fm = {
+    //功能初始化
     init: function () {
         this.channelId;
         this.song;
@@ -18,10 +21,14 @@ var Fm = {
         this.audioObj.volume = 0.6;
         this.$main = $('main');
         this.$playBtn = this.$main.find('#playBtn');
+        this.lyric;
         this.bind();
     },
+
+    //绑定事件
     bind: function () {
         var _this = this;
+        //绑定播放暂停按钮事件
         this.$playBtn.on('click', function () {
             if ($(this).hasClass('icon-play')) {
                 $(this).removeClass('icon-play').addClass('icon-stop');
@@ -36,6 +43,8 @@ var Fm = {
         // this.$main.find('.icon-like').on('click', function () {
         //     $(this).addClass('active');
         // })
+        
+        //绑定“下一首”按钮事件
         this.$main.find('.icon-nextsong').on('click', function () {
             console.log('下一首')
             _this.loadMusic();
@@ -50,7 +59,7 @@ var Fm = {
         this.audioObj.addEventListener('play', function () {
             _this.songStatus = setInterval(function () {
                 _this.updateStatus();
-            }, 500)
+            }, 1000)
         })
         this.audioObj.addEventListener('pause', function () {
             clearInterval(_this.songStatus)//取消歌曲状态更新
@@ -60,7 +69,10 @@ var Fm = {
             _this.loadMusic();
         }
     },
+
+    //更新进度条信息
     updateStatus() {
+        var _this = this;
         this.min = Math.floor(this.audioObj.currentTime / 60);//计算多少分钟，向下取整
         this.second = Math.floor(this.audioObj.currentTime % 60) + '';//计算秒数，余60，向下取整
         this.second.length === 2 ? this.second : this.second = '0' + this.second;
@@ -70,7 +82,13 @@ var Fm = {
             'width': this.timeNow
         })
         this.$main.find('#time').text(this.time)
+        if(this.lyricObj['0'+this.time]){
+            $('.lrc p').text(_this.lyricObj['0' + _this.time])
+        }
+        
     },
+
+    //获取歌曲
     loadMusic: function () {
         var _this = this;
         $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php', {
@@ -78,12 +96,16 @@ var Fm = {
         })
             .done(function (ret) {
                 _this.song = ret.song[0];
+                _this.sid = _this.song.sid;
                 _this.setMusic();
+                _this.loadLyric();
             })
             .fail(function () {
                 console.log('网络异常，获取数据失败')
             })
     },
+
+    //加载歌曲并修改播放信息
     setMusic: function () {
         $('body .bg').css({
             background: 'url(' + this.song.picture + ') no-repeat',
@@ -103,9 +125,35 @@ var Fm = {
         this.$playBtn.removeClass('icon-play').addClass('icon-stop');
         $('head title').text('正在播放：' + $('main .author').text() + '-' + $('main .title').text())
         console.log($('main .author').text() + '-' + $('main .title').text());
+    },
+
+    //实现获取歌曲歌词、拼接歌词显示功能
+    loadLyric: function () {
+        var _this = this
+        $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {
+            sid: _this.sid
+        }).done(function (ret) {
+            _this.lyric = ret;
+            _this.lyricArray = ret.lyric;
+            _this.lyricObj = {};
+            
+            //开始拼接歌词
+            _this.lyricArray.split(/\n/).forEach(function (item) {
+                let time = item.match(/\d{2}:\d{2}/g)
+                let str = item.replace(/\[.+?\]/g,'')
+                
+                //注意，由于时间应该为数组，且数组有可能为空，导致配对不上歌词，所以应该先判断是否为数组，然后再forEach配对时间和歌词
+                if(Array.isArray(time)) {
+                    time.forEach(function (times) {
+                        _this.lyricObj[times] = str
+                    })
+                }
+            })
+        }).fail(function () {
+            console.log('获取歌词失败')
+        })
     }
 }
-
 
 //封装一个实现页面Footer功能的对象，里面包含了获取频道数据以及渲染footer区块的功能。
 var Footer = {

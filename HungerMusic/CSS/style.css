@@ -153,6 +153,7 @@ main .detail .bar .playingtime {
     background: -webkit-linear-gradient(left, #fec514, #EE4000);
     background: linear-gradient(left, #fec514, #EE4000);
     height: 5px;
+    transition: width .8s;
     z-index: 2;
 }
 main .detail .bar .playingtime::after{
@@ -164,7 +165,7 @@ main .detail .bar .playingtime::after{
     background-color: #fff;
     position: absolute;
     right: -11px;
-    top: -50%;
+    top: -55%;
 }
 
 main .detail .bar span {
@@ -177,11 +178,12 @@ main .detail .author {
     font-size: 3vh;
     color: #ffffffc9;
 }
-main .detail .lrc {
+main .detail .lrc p{
     color: #ffffffc9;
     margin-top: 4.3vh;
     font-size: 3vh;
     overflow: hidden;
+    position: relative;
 }
 
 footer .layout {
