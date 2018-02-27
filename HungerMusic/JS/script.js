@@ -146,9 +146,11 @@ var Fm = {
                 if (Array.isArray(time)) {
                     time.forEach(function (times) {
                         _this.lyricObj[times] = str
+                        console.log(times + ' '+ str)
                     })
                 }
             })
+            console.log(_this.lyricObj)
         }).fail(function () {
             console.log('获取歌词失败')
         })
