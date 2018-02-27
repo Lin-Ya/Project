@@ -191,6 +191,9 @@ main .detail .lrc p {
     overflow: hidden;
     position: relative;
 }
+main .lrc p span {
+    margin-right: 3px;
+}
 
 footer .layout {
     position: relative;
