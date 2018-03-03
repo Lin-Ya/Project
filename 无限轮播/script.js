@@ -95,4 +95,4 @@ carousel.prototype = {
 }
 
 var a = new carousel($('.carousel').eq(0))
-// var b = new carousel($('.carousel').eq(1))
+var b = new carousel($('.carousel').eq(1))
