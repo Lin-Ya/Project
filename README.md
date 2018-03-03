@@ -10,4 +10,4 @@
 
 - [大屏音乐播放器](https://lin-ya.github.io/Project/HungerMusic/)
 
-- [无限轮播](https://lin-ya.github.io/Project/无限轮播/)
+- [无限轮播组件](https://github.com/Lin-Ya/Project/tree/master/%E6%97%A0%E9%99%90%E8%BD%AE%E6%92%AD)
