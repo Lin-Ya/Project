@@ -24,6 +24,7 @@ carousel.prototype = {
         this.$clone_First_Item = this.$img_li.eq(0).clone().addClass('cloneFirst').appendTo(this.$img_ct);                  //把第一页克隆到最后一页后面。
         this.switching = false;                                 //用于节流
         this.bind();                                            //实现绑定
+        this.autoSwitch();
     },
     //绑定事件
     bind: function () {
@@ -31,33 +32,39 @@ carousel.prototype = {
         var _this = this;
         //绑定上下页切换事件
         this.$preBtn.on('click', function () {
-            if (_this.switching) {                                                   //函数节流
+            if (_this.switching) {                              //函数节流
                 console.log('节流')
                 return;
             }
             _this.pre();
+            clearInterval(_this.clock);                                 
+            _this.autoSwitch();
         });
         this.$nextBtn.on('click', function () {
-            if (_this.switching) {                                                   //函数节流
+            if (_this.switching) {                              //函数节流
                 console.log('节流')
                 return;
             }
             _this.next();
+            clearInterval(_this.clock);
+            _this.autoSwitch();
         })
 
         //绑定轮播指示器的切换按钮功能
         this.$indicatorBtn.on('click', function (e) {
-            var toThis = $(e.target).index()                                        //获取所点击的指示器按钮的下标
+            var toThis = $(e.target).index()                    //获取所点击的指示器按钮的下标
             console.log(_this.switching)
-            if (_this.switching) {                                                   //函数节流
+            if (_this.switching) {                              //函数节流
                 console.log('节流')
                 return;
             }
-            _this.switching = true;                                                 //锁住状态                             
+            _this.switching = true;                             //锁住状态                             
             function updateStatus() {
                 console.log('ok')
                 _this.indexNow = toThis
-                _this.indicatorSwitch();                                            //对指示器进行更新  
+                _this.indicatorSwitch();                        //对指示器进行更新 
+                clearInterval(_this.clock);
+                _this.autoSwitch(); 
             }
             if(toThis > _this.indexNow) {                                           //判断目标下标距离当前下标的关系
                 _this.$img_ct.animate({
@@ -112,10 +119,18 @@ carousel.prototype = {
             console.log(_this.indexNow)
         })
     },
-    
+
     //更新轮播指示器的状态
     indicatorSwitch: function () {
         this.$indicatorBtn.eq(this.indexNow).addClass('active').siblings().removeClass('active')
+    },
+
+    //自动轮播,同时在上面给每次对轮播页面进行操作的时候，取消计时器并重新启动自动轮播
+    autoSwitch: function () {
+        var _this = this
+        this.clock = setInterval(function () {
+            _this.$nextBtn.trigger('click');
+        },4500);
     }
 }
 
