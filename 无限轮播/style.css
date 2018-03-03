@@ -23,6 +23,7 @@ li {
     height: 470px;
     margin: 25px auto;
     position: relative;
+    overflow: hidden;
 }
 .carousel:hover .arrow {
     color: #ffffff82;
@@ -34,8 +35,9 @@ li {
     height: 470px;
 }
 .carousel .img_ct {
-    height: 470px;
+    position: absolute;
     overflow: hidden;
+    height: 470px;
 }
 .carousel .img_ct li {
     float: left;
@@ -48,20 +50,17 @@ li {
     font-size: 35px;
     cursor: pointer;
     text-align: center;
+    top: 50%;
+    transform: translateY(-50%); 
 }
 .carousel .arrow:hover {
     border: 1px solid #fff;
     color: #fff;
     background-color: #4141414a;
 }
-.carousel .arrow.pre {
-    top: 50%;
-    transform: translateY(-50%); 
-}
+
 .carousel .arrow.next {
     right: 0;
-    top: 50%;
-    transform: translateY(-50%); 
 }
 
 .carousel .indicator {
