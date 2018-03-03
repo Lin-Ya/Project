@@ -88,7 +88,7 @@ carousel.prototype = {
         _this.switching = true;
         this.$img_ct.animate({
             left: '+=' + this.itemWidth
-        },400,function () {
+        },300,function () {
             _this.switching = false;
             _this.indexNow --;
             if (_this.indexNow === -1) {                //-1表示，当前转到了克隆对象为最后一页的时候，表示来到了轮播队列的首位，这时候就是切换轮播到被克隆的最后一页。
@@ -106,7 +106,7 @@ carousel.prototype = {
         _this.switching = true;
         this.$img_ct.animate({
             left: '-=' + this.itemWidth
-        },400,function () {
+        },300,function () {
             _this.switching = false;
             _this.indexNow++;
             if (_this.indexNow === _this.itemCount) {     //这里表示，当前转到了克隆对象为第一页的时候，表示来到了轮播队列的尾部，这时候就是切换轮播到被克隆的最后一页。
