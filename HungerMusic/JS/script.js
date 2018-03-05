@@ -149,13 +149,8 @@ var Fm = {
     //实现获取歌曲歌词、拼接歌词显示功能
     loadLyric: function () {
         var _this = this
-        $.ajax({
-        	url: '//api.jirengu.com/fm/getLyric.php',
-        	type: 'GET',
-        	data: {
-        		sid: _this.sid
-        	},
-        	dataType: 'jsonp'
+        $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {
+            sid: _this.sid
         })
         .done(function (ret) {
             _this.lyric = ret;
@@ -234,7 +229,7 @@ var Footer = {
                 })
             }
         })
-        $('footer .box li').eq(4).trigger('click')
+        $('footer .box li').eq(0).trigger('click')
     },
     contScroll: function () {
         var rowCount = Math.floor($('footer .box').outerWidth() / $('footer li').outerWidth(true));
@@ -254,6 +249,8 @@ var Footer = {
         })
         //在页面载入完成以后可以开始计算左右滚动的距离。使用全局变量防止变化
         _this.rollDistance = _this.contScroll(); 
+        $('footer .box li').eq(0).remove();
+        $('footer .box li').eq(0).remove();
         _this.bind();
     },
     getData: function () {
