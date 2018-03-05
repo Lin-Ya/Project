@@ -103,7 +103,7 @@ var Fm = {
         	data: {
         		channel: _this.channelId
         	},
-        	dataType: 'json'
+        	dataType: 'jsonp'
         })
         .done(function (ret) {
         	console.log(ret);
@@ -155,7 +155,7 @@ var Fm = {
         	data: {
         		sid: _this.sid
         	},
-        	dataType: 'json'
+        	dataType: 'jsonp'
         })
         .done(function (ret) {
             _this.lyric = ret;
