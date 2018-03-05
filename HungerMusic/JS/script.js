@@ -96,23 +96,32 @@ var Fm = {
     //获取歌曲
     loadMusic: function () {
         var _this = this;
-        $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php', {
-                channel: _this.channelId
-            })
-            .done(function (ret) {
-                _this.song = ret.song[0];
-                _this.sid = _this.song.sid;
-                _this.setMusic();
-                _this.loadLyric();
-            })
-            .fail(function () {
-                console.log('刚刚网络异常，获取数据失败')
-                _this.loadMusic();
-            })
+        console.log(this.channelId)
+        $.ajax({
+        	url: '//api.jirengu.com/fm/getSong.php',
+        	tpye: 'GET',
+        	data: {
+        		channel: _this.channelId
+        	},
+        	dataType: 'json'
+        })
+        .done(function (ret) {
+        	console.log(ret);
+            _this.song = ret.song[0];
+            _this.sid = _this.song.sid;
+            _this.setMusic();
+            _this.loadLyric();
+        })
+        .fail(function (err) {
+        	console.log(err)
+            console.log('刚刚网络异常，获取数据失败')
+            _this.reload();
+        })
     },
-
     //加载歌曲并修改播放信息
     setMusic: function () {
+    	if(this.song.url) {
+    	this.audioObj.src = this.song.url; 
         $('body .bg').css({
             background: 'url(' + this.song.picture + ') no-repeat',
             backgroundSize: 'cover'
@@ -127,18 +136,28 @@ var Fm = {
         $('main .detail .icon-like span').text(Math.floor(this.song.sid / 25000 + 67))
         $('main .detail .icon-zan span').text(Math.floor(this.song.sid / 27555 + 41))
         this.audioObj.autoplay = true;
-        this.audioObj.src = this.song.url;
         this.$playBtn.removeClass('icon-play').addClass('icon-stop');
         $('head title').text('正在播放：' + $('main .author').text() + '-' + $('main .title').text())
-        console.log($('main .author').text() + '-' + $('main .title').text());
+        console.log($('main .author').text() + '-' + $('main .title').text());   		
+    	}else {
+    		window.alert('该专辑出现异常，请尝试更换专辑')
+    		$('main .detail .title').text('该专辑出现异常');
+    		$('main .detail .author').text('请尝试更换专辑');
+    	}
     },
 
     //实现获取歌曲歌词、拼接歌词显示功能
     loadLyric: function () {
         var _this = this
-        $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {
-            sid: _this.sid
-        }).done(function (ret) {
+        $.ajax({
+        	url: '//api.jirengu.com/fm/getLyric.php',
+        	type: 'GET',
+        	data: {
+        		sid: _this.sid
+        	},
+        	dataType: 'json'
+        })
+        .done(function (ret) {
             _this.lyric = ret;
             _this.lyricArray = ret.lyric;
             _this.lyricObj = {};
@@ -156,7 +175,8 @@ var Fm = {
                 }
             })
             console.log(_this.lyricObj)
-        }).fail(function () {
+        }).fail(function (err) {
+        	console.log(err)
             console.log('获取歌词失败')
         })
     }
@@ -214,7 +234,7 @@ var Footer = {
                 })
             }
         })
-        $('footer .box li').eq(0).trigger('click')
+        $('footer .box li').eq(4).trigger('click')
     },
     contScroll: function () {
         var rowCount = Math.floor($('footer .box').outerWidth() / $('footer li').outerWidth(true));
@@ -238,7 +258,7 @@ var Footer = {
     },
     getData: function () {
         var _this = this;
-        $.getJSON('//jirenguapi.applinzi.com/fm/getChannels.php')
+        $.getJSON('//api.jirengu.com/fm/getChannels.php')
             .done(function (ret) {
                 channelList = ret.channels;
                 _this.renderFooter(ret.channels);
