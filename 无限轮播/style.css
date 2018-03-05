@@ -1,0 +1,90 @@
+/* reset Css */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: #444;
+}
+ul,
+li {
+    list-style: none;
+}
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+/* style */
+.carousel {
+    width: 590px;
+    height: 470px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+}
+.carousel:hover .arrow {
+    color: #ffffff82;
+    background-color: #41414127;
+}
+
+.carousel img {
+    width: 590px;
+    height: 470px;
+}
+.carousel .img_ct {
+    position: absolute;
+    overflow: hidden;
+    height: 470px;
+}
+.carousel .img_ct li {
+    float: left;
+}
+.carousel .arrow{
+    position: absolute;
+    color: #2d047d6d;
+    width: 60px;
+    height: 60px;
+    font-size: 35px;
+    cursor: pointer;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%); 
+}
+.carousel .arrow:hover {
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: #4141414a;
+}
+
+.carousel .arrow.next {
+    right: 0;
+}
+
+.carousel .indicator {
+    margin: 20px auto;
+    width: 320px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%)
+}
+.carousel .indicator span {
+    float: left;
+    cursor: pointer;
+    width: 50px;
+    margin: 0 15px;
+    height: 13px;
+    background-color: #878787a9;
+    border-radius: 5px;
+}
+.carousel .indicator:hover span{
+    background-color: #6c6c6c;
+    border: 1px solid #fff;
+}
+
+.carousel .indicator span.active {
+    background-color: #fff;
+}
